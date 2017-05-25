@@ -44,26 +44,25 @@ class Zombie
   end
 
   def self.new_day
-    self.some_die_off
-
+    some_die_off
+    spawn
+    increase_plague_level
   end
 
   def self.some_die_off
     dead_zombies = rand(0..10)
-    @@horde -= dead_zombies
+    @@horde.pop(dead_zombies)
   end
 
   def self.spawn
+    #puts "starting spawn method"
     number_of_zombies = rand(1..@@plague_level)
-    #generate random number_of_zombies
-    #generate x zombies
-    #add x zombies to horde
-
     number_of_zombies.times do
-      zombie = Zombie.new(rand(1..@@speed), rand(1..@@max_strength))
+      zombie = Zombie.new(rand(1..@@max_speed), rand(1..@@max_strength))
       @@horde << zombie
-    end
 
+    end
+    #puts @@horde
   end
 
   def self.increase_plague_level
